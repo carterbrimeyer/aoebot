@@ -1,0 +1,22 @@
+{
+  "name": "aoebot",
+  "version": "1.0.0",
+  "description": "A discord bot that implements age of empires taunts to your discord server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carterbrimeyer/aoebot.git"
+  },
+  "author": "Carter Brimeyer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carterbrimeyer/aoebot/issues"
+  },
+  "homepage": "https://github.com/carterbrimeyer/aoebot#readme",
+  "dependencies": {
+    "discord.js": "^13.5.0"
+  }
+}
