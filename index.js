@@ -34,7 +34,7 @@ function parseMessage(msg) {
             msg.channel.send({
                 files: [{
                     attachment: (data[(3 * input) - 1]),
-                    name: (parseInt(data[3*input]) - 1) + ".ogg"
+                    name: input + ".ogg"
                 }],
                 content: (data[(3 * input) - 2])
             });
