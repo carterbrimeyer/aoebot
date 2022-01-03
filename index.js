@@ -26,7 +26,20 @@ client.on('messageCreate', parseMessage);
 
 function parseMessage(msg) {
     let input = parseInt(msg.content);
-    if (input > 0 && input <= 105) {
+    if (/^\d+$/.test(msg.content) && input > 0 && input <= 105) {
         console.log(input);
+        try {
+            const data = (fs.readFileSync('tauntlist.txt', 'utf8').split("\n"));
+            console.log("Tauntlist Loaded.");
+            msg.channel.send({
+                files: [{
+                    attachment: (data[(3 * input) - 1]),
+                    name: (parseInt(data[3*input]) - 1) + ".ogg"
+                }],
+                content: (data[(3 * input) - 2])
+            });
+        } catch (err) {
+            console.error("Tauntlist loading error! " + err);
+        }
     }
 }
