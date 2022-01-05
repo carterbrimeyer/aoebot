@@ -35,32 +35,31 @@ function parseMessage(msg) {
     let input = parseInt(msg.content);
 
     let voiceChannel = msg.member.voice.channel;
-
-    if (voiceChannel == null && /^\d+$/.test(msg.content) && input > 0 && input <= 105) {
-        try {
+    if (input > 0 && input <= 105 && /^\d+$/.test(msg.content)) {
+        let dir = 'taunts/T_' + msg.content + '.ogg';
+        if (voiceChannel == null) {
             msg.channel.send({
                 files: [{
-                    attachment: (data[(3 * input) - 1]),
-                    name: input + '.ogg'
+                    attachment: path.join(__dirname, dir),
                 }],
-                content: (data[(3 * input) - 2])
+                content: (data[input - 1])
             });
-        } catch (err) {
-            console.error('Tauntlist loading error! ' + err);
+            console.log('sent ' + (data[input - 1]));
         }
-        console.log("sent " + (data[(3 * input) - 2]));
-    }
-    else if (/^\d+$/.test(msg.content) && input > 0 && input <= 105){
-        const connection = joinVoiceChannel({
-            channelId: voiceChannel.id,
-            guildId: msg.guild.id,
-            adapterCreator: msg.guild.voiceAdapterCreator
-        });
-        const player = createAudioPlayer();
-        connection.subscribe(player);
+        else {
+            const connection = joinVoiceChannel({
+                channelId: voiceChannel.id,
+                guildId: msg.guild.id,
+                adapterCreator: msg.guild.voiceAdapterCreator
+            });
+            const player = createAudioPlayer();
+            connection.subscribe(player);
+            const resource = createAudioResource(path.join(__dirname, dir));
+            player.play(resource);
+            console.log('played ' + data[input - 1]);
+        }
+        if (msg.content == '!taunts') {
 
-        const resource = createAudioResource((data[(3 * input) - 1]));
-        player.play(resource);
-        console.log("played " + (data[(3 * input) - 2]));
+        }
     }
 }
