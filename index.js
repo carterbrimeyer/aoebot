@@ -23,7 +23,8 @@ client.login(token);
 
 client.on('ready', readyBot);
 
-const data = (fs.readFileSync('tauntlist.txt', 'utf8').split('\n'));
+const rawData = (fs.readFileSync('tauntlist.txt', 'utf8'));
+const data = rawData.split('\n');
 
 function readyBot() {
     console.log('Bot is online.');
@@ -58,8 +59,10 @@ function parseMessage(msg) {
             player.play(resource);
             console.log('played ' + data[input - 1]);
         }
-        if (msg.content == '!taunts') {
-
-        }
+    }
+    if (msg.content == '!taunts') {
+        msg.author.send(rawData.substring(0, 1000));
+        msg.author.send(rawData.substring(1000, 2000));
+        msg.author.send(rawData.substring(2000));
     }
 }
